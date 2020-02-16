@@ -54,7 +54,7 @@ def guessFormat(url):
         if formatContent:
             return formatContent
         else:
-            return ""
+            raise Exception(url, "File format unknown or not recognizable.")
         
     
 
@@ -63,10 +63,7 @@ def importByURL():
     try:
         url = checkURL(request.form['url'])
         dataFormat = guessFormat(url)
-        if dataFormat:
-            return jsonify({'url':url,'format':dataFormat})
-        else:
-            return jsonify({'url':url,'error':"File format unknown or not recognizable."})
+        return jsonify({'url':url,'format':dataFormat})
     
     except Exception as e:
         x, y = e.args

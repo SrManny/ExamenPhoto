@@ -13,13 +13,13 @@ class TestPhotoslurp(unittest.TestCase):
 
     def test_postWorking(self):
         url = "http://funcionaElPost.com"
-        r = requests.post("http://127.0.0.1:5000/Photoslurp/importByURL",data ={"url":url})
+        r = requests.post("http://10.0.75.1:5000/Photoslurp/importByURL",data ={"url":url})
         ResultUrl = json.loads(r.text)['url']
         self.assertEqual(ResultUrl,url, "Should be " + url)
     
     def test_postCheckURLWorking(self):
         url = "httpqweqwr"
-        r = requests.post("http://127.0.0.1:5000/Photoslurp/importByURL",data ={"url":url})
+        r = requests.post("http://10.0.75.1:5000/Photoslurp/importByURL",data ={"url":url})
         result = json.loads(r.text)
         self.assertIn("error", result, "We get the error: " + result['error'])
         self.assertEqual("url wrong format",result['error'], "We get the correct error.")
@@ -32,11 +32,11 @@ class TestPhotoslurp(unittest.TestCase):
         result = json.loads(r.text)['format']
         self.assertEqual("csv",result, "We get the correct format.")
         
-        r = requests.post("http://127.0.0.1:5000/Photoslurp/importByURL",data ={"url":url2})
+        r = requests.post("http://10.0.75.1:5000/Photoslurp/importByURL",data ={"url":url2})
         result = json.loads(r.text)['error']
         self.assertEqual("File format unknown or not recognizable.",result, "We get the correct format.")
         
-        r = requests.post("http://127.0.0.1:5000/Photoslurp/importByURL",data ={"url":url3})
+        r = requests.post("http://10.0.75.1:5000/Photoslurp/importByURL",data ={"url":url3})
         result = json.loads(r.text)['format']
         self.assertEqual("xml",result, "We get the correct format.")
     
